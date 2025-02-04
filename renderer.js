@@ -37,15 +37,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // UPnP Scanning
 document.getElementById('scan-upnp').addEventListener('click', () => {
+    const deviceList = document.getElementById('upnp-device-list');
+    const loadingSpinner = document.getElementById('upnp-loading');
+
+    deviceList.innerHTML = ''; // Clear previous results
+    loadingSpinner.classList.remove('d-none'); // Show spinner
+
     ipcRenderer.send('scan-upnp');
+
+    // Set a timeout for 60 seconds (60000 ms)
+    window.upnpTimeout = setTimeout(() => {
+        loadingSpinner.classList.add('d-none'); // Hide spinner
+        deviceList.innerHTML = '<li class="list-group-item text-danger">No devices found (Timeout after 60s).</li>';
+    }, 60000);
 });
 
 ipcRenderer.on('upnp-results', (event, devices) => {
     const deviceList = document.getElementById('upnp-device-list');
-    deviceList.innerHTML = '';
+    const loadingSpinner = document.getElementById('upnp-loading');
+
+    clearTimeout(window.upnpTimeout); // Cancel timeout if results arrive
+    loadingSpinner.classList.add('d-none'); // Hide spinner
 
     if (devices.length === 0) {
-        deviceList.innerHTML = '<li class="list-group-item">No devices found.</li>';
+        deviceList.innerHTML = '<li class="list-group-item text-danger">No devices found.</li>';
         return;
     }
 
@@ -56,6 +71,8 @@ ipcRenderer.on('upnp-results', (event, devices) => {
         deviceList.appendChild(listItem);
     });
 });
+
+
 // Load categories and files
 function loadCategories() {
     fs.readFile(path.join(__dirname, 'bat-files.json'), 'utf8', (err, data) => {

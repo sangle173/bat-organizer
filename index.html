@@ -26,6 +26,28 @@
             font-family: monospace;
             overflow-y: auto;
         }
+
+        /*!* Header Tab Styling *!*/
+        /*#app-tabs .nav-link {*/
+        /*    background-color: #343a40; !* Dark theme for header tabs *!*/
+        /*    color: white;*/
+        /*    margin-right: 5px;*/
+        /*}*/
+        /*#app-tabs .nav-link.active {*/
+        /*    background-color: #007bff; !* Blue active tab *!*/
+        /*    color: white;*/
+        /*}*/
+
+        /* Category Tabs Styling */
+        #category-tabs .nav-link {
+            background-color: #f8f9fa; /* Light gray for categories */
+            color: #000;
+            border: 1px solid #ddd;
+        }
+        #category-tabs .nav-link.active {
+            background-color: #007bff; /* Blue when active */
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -39,10 +61,8 @@
         <a class="nav-link" href="#" onclick="showSection('upnp-page')">Discover UPnP Devices</a>
     </li>
 </ul>
-
 <!-- BAT Files Manager Section -->
-<div id="bat-files-page" class="container-fluid content-section active-section">
-    <h5 class="text-center mt-3">BAT File Organizer</h5>
+<div id="bat-files-page" class="container-fluid content-section active-section mt-1">
     <ul class="nav nav-tabs mt-1" id="category-tabs"></ul>
     <div class="split-view mt-2">
         <div class="list-view">
@@ -59,11 +79,20 @@
 </div>
 
 <!-- UPnP Device Discovery Section -->
-<div id="upnp-page" class="container-fluid content-section">
-    <h1 class="text-center mt-3">Discover UPnP Devices</h1>
+<div id="upnp-page" class="container-fluid content-section mt-1">
     <button class="btn btn-primary" id="scan-upnp">Scan for Devices</button>
+
+    <!-- Loading Spinner -->
+    <div id="upnp-loading" class="text-center mt-3 d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Scanning...</span>
+        </div>
+        <p>Scanning for devices...</p>
+    </div>
+
     <ul class="list-group mt-3" id="upnp-device-list"></ul>
 </div>
+
 <!-- Modal for Adding/Edit BAT Files -->
 <!-- Edit Metadata Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
