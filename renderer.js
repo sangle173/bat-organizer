@@ -12,7 +12,50 @@ const categoryTabs = document.getElementById('category-tabs');
 let currentEditIndex = null;
 
 let selectedCategory = null;
+// Navigation: Show Active Section
+window.showSection = (sectionId) => {
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active-section');
+    });
+    document.getElementById(sectionId).classList.add('active-section');
 
+    // Update active link in the tabs
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    document.querySelector(`.nav-link[onclick="showSection('${sectionId}')"]`).classList.add('active');
+
+    // Load BAT files when switching to BAT Manager
+    if (sectionId === 'bat-files-page') {
+        loadCategories();
+    }
+};
+
+// Ensure default page loads on startup
+document.addEventListener('DOMContentLoaded', () => {
+    loadCategories();
+    showSection('bat-files-page'); // Default to BAT Files Manager
+});
+
+// UPnP Scanning
+document.getElementById('scan-upnp').addEventListener('click', () => {
+    ipcRenderer.send('scan-upnp');
+});
+
+ipcRenderer.on('upnp-results', (event, devices) => {
+    const deviceList = document.getElementById('upnp-device-list');
+    deviceList.innerHTML = '';
+
+    if (devices.length === 0) {
+        deviceList.innerHTML = '<li class="list-group-item">No devices found.</li>';
+        return;
+    }
+
+    devices.forEach(device => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = `Name: ${device.name}, IP: ${device.ip}, Type: ${device.type}`;
+        deviceList.appendChild(listItem);
+    });
+});
 // Load categories and files
 function loadCategories() {
     fs.readFile(path.join(__dirname, 'bat-files.json'), 'utf8', (err, data) => {

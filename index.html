@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAT File Organizer</title>
+    <title>Bat Organizer</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        .content-section { display: none; }
+        .active-section { display: block; }
         .split-view {
             display: flex;
             height: 80vh;
         }
         .list-view {
-            width: 50%;
+            width: 40%;
             overflow-y: auto;
             border-right: 1px solid #ddd;
         }
         .console-view {
-            width: 50%;
+            width: 60%;
             padding: 10px;
             background-color: #1e1e1e;
             color: #fff;
@@ -27,17 +29,24 @@
     </style>
 </head>
 <body>
-<div class="container-fluid mt-3">
-    <!-- Category Navigation -->
-    <ul class="nav nav-tabs" id="category-tabs">
-        <!-- Categories will be dynamically inserted here -->
-    </ul>
 
-    <div class="split-view">
+<!-- Navigation Tabs -->
+<ul class="nav nav-tabs" id="app-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#" onclick="showSection('bat-files-page')">BAT Files Manager</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" onclick="showSection('upnp-page')">Discover UPnP Devices</a>
+    </li>
+</ul>
+
+<!-- BAT Files Manager Section -->
+<div id="bat-files-page" class="container-fluid content-section active-section">
+    <h5 class="text-center mt-3">BAT File Organizer</h5>
+    <ul class="nav nav-tabs mt-1" id="category-tabs"></ul>
+    <div class="split-view mt-2">
         <div class="list-view">
-            <div class="list-group" id="bat-file-list">
-                <!-- BAT files for selected category will be listed here -->
-            </div>
+            <div class="list-group" id="bat-file-list"></div>
             <button class="btn btn-primary mt-3 w-100" id="add-bat-file">Add BAT File</button>
         </div>
         <div class="console-view">
@@ -49,6 +58,12 @@
     </div>
 </div>
 
+<!-- UPnP Device Discovery Section -->
+<div id="upnp-page" class="container-fluid content-section">
+    <h1 class="text-center mt-3">Discover UPnP Devices</h1>
+    <button class="btn btn-primary" id="scan-upnp">Scan for Devices</button>
+    <ul class="list-group mt-3" id="upnp-device-list"></ul>
+</div>
 <!-- Modal for Adding/Edit BAT Files -->
 <!-- Edit Metadata Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -96,9 +111,6 @@
         </div>
     </div>
 </div>
-
-
-
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./renderer.js"></script>

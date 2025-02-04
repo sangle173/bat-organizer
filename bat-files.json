@@ -4,7 +4,7 @@
     "files": [
       {
         "name": "Cleanup",
-        "icon": "fa-microchip",
+        "icon": "fa-play",
         "description": "Cleans temporary files",
         "path": "D://bat-organizer//bat-files//example.bat"
       },
@@ -21,7 +21,13 @@
     "files": [
       {
         "name": "example.bat",
-        "icon": "fa-terminal",
+        "icon": "fa-hdd",
+        "description": "",
+        "path": "D://bat-organizer//bat-files//example.bat"
+      },
+      {
+        "name": "Demo",
+        "icon": "fa-keyboard",
         "description": "",
         "path": "D://bat-organizer//bat-files//example.bat"
       }
