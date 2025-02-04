@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAT File Organizer</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .split-view {
+            display: flex;
+            height: 80vh;
+        }
+        .list-view {
+            width: 50%;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+        .console-view {
+            width: 50%;
+            padding: 10px;
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: monospace;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-3">
+    <!-- Category Navigation -->
+    <ul class="nav nav-tabs" id="category-tabs">
+        <!-- Categories will be dynamically inserted here -->
+    </ul>
+
+    <div class="split-view">
+        <div class="list-view">
+            <div class="list-group" id="bat-file-list">
+                <!-- BAT files for selected category will be listed here -->
+            </div>
+            <button class="btn btn-primary mt-3 w-100" id="add-bat-file">Add BAT File</button>
+        </div>
+        <div class="console-view">
+            <div class="d-flex justify-content-end mb-2">
+                <button class="btn btn-secondary btn-sm" id="save-console">Save Console Output</button>
+            </div>
+            <div id="console-output"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Adding/Edit BAT Files -->
+<!-- Edit Metadata Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit BAT File Metadata</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <div class="mb-3">
+                        <label for="edit-category" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="edit-category" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="edit-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-path" class="form-label">File Path</label>
+                        <input type="text" class="form-control" id="edit-path" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-icon" class="form-label">Icon</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="edit-icon" readonly>
+                            <button type="button" class="btn btn-outline-secondary" id="icon-picker-btn">
+                                <i class="fas fa-icons"></i> Pick Icon
+                            </button>
+                        </div>
+                        <small class="text-muted">Choose an icon from FontAwesome.</small>
+                        <div id="icon-picker-container" class="mt-2 d-none"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="edit-description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-changes">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./renderer.js"></script>
+</body>
+</html>

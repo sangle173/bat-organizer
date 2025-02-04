@@ -1,0 +1,30 @@
+[
+  {
+    "category": "Utilities",
+    "files": [
+      {
+        "name": "Cleanup",
+        "icon": "fa-microchip",
+        "description": "Cleans temporary files",
+        "path": "D://bat-organizer//bat-files//example.bat"
+      },
+      {
+        "name": "Backup",
+        "icon": "fa-database",
+        "description": "Runs system backup",
+        "path": "D://bat-organizer//bat-files//example.bat"
+      }
+    ]
+  },
+  {
+    "category": "Network",
+    "files": [
+      {
+        "name": "example.bat",
+        "icon": "fa-terminal",
+        "description": "",
+        "path": "D://bat-organizer//bat-files//example.bat"
+      }
+    ]
+  }
+]
